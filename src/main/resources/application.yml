@@ -6,13 +6,11 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health, info, metrics, prometheus
+        include: health, info, prometheus
   endpoint:
     info:
       enabled: true
     health:
-      enabled: true
-    metrics:
       enabled: true
     prometheus:
       enabled: true
