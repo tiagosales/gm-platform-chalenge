@@ -20,6 +20,8 @@ java -jar /build/libs/gm-platform-chalenge-0.0.1-SNAPSHOT.jar
 
 ## Endpoints
 
+> The application runs on port 8080
+
 `/actuator/info`: Exposes general application information
 
 ```json
