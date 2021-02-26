@@ -2,7 +2,7 @@
 
 > Technical Challenge Support Application
 
-## Requisitos
+## Requirements
 
 - Java 8
 
