@@ -1,6 +1,4 @@
 node {
-    def app
-
     stage('Clonar repo') {
         checkout scm
     }
@@ -11,13 +9,15 @@ node {
     }
 
     stage('Realizar o build da imagem') {
-       app = docker.build("gmile/challenge")
+       app = docker.build('gmile-challenge')
     }
 
     stage('Push image') {
-        docker.withRegistry('', 'git') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+       withCredentials([string(credentialsId: 'ecr-address', variable: 'ECR_ADDRESS')]) {
+           docker.withRegistry('', 'ecr-address') {
+               sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_ADDRESS"
+               docker.image('gmile-challenge').push("${env.BUILD_NUMBER}")
+               docker.image('gmile-challenge').push("latest")
         }
     }
 }
