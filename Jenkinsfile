@@ -15,7 +15,7 @@ node {
          docker.build('gmile-challenge')
     }
 
-    withEnv([REPO_NAME='gmile-challenge', REGION='us-east-1']){
+    withEnv(['REPO_NAME=gmile-challenge', 'REGION=us-east-1']){
       stage('Push image') {
         ECR_ADDRESS = sh script: 'aws ecr describe-repositories --repository-names ${REPO_NAME} --region ${REGION} | grep repositoryUri | awk -F: {\'print $2\'} | tr -d \\",\\ ', returnStdout: true
         docker.withRegistry("https://${ECR_ADDRESS}", '') {
