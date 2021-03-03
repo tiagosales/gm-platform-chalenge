@@ -20,7 +20,7 @@ node {
             sh("aws ecr --no-verify-ssl get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_ADDRESS}")
             docker.image('gmile-challenge').push("${env.BUILD_NUMBER}")
             docker.image('gmile-challenge').push("latest")
-            sh("aws ecs --no-verify-ssl update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${TASKDEF} --desired-count ${NUMTASKS}")
+            sh("aws ecs --no-verify-ssl update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${TASKDEF} --desired-count ${NUMTASKS} --force-new-deployment")
           }
         }
       }
