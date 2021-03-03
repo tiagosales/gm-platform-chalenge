@@ -1,7 +1,4 @@
 node {
-    def REPO_NAME = 'gmile-challenge'
-    def REGION = 'us-east-1'
-
     stage('Clonar repo') {
         checkout scm
     }
