@@ -17,8 +17,8 @@ node {
 
     withEnv(['REPO_NAME=gmile-challenge', 'REGION=us-east-1']){
       stage('Push image') {
-        ECR_ADDRESS = sh script: 'bash get-ecr-repo.sh ${REPO_NAME} ${REGION}', returnStdout: true
-        sh('echo ecr_addr = ${ECR_ADDRESS}')
+        ECR_ADDRESS = sh(script: 'bash get-ecr-repo.sh ${REPO_NAME} ${REGION}', returnStdout: true)
+        echo "ecr_addr = ${ECR_ADDRESS}"
         docker.withRegistry("https://${ECR_ADDRESS}", '') {
           sh('aws ecr --no-verify-ssl get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_ADDRESS}')
           docker.image('gmile-challenge').push("${env.BUILD_NUMBER}")
