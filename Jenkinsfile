@@ -25,7 +25,7 @@ node {
             }
         }
         stage('Deploy on ECS'){
-          sh("aws ecs --no-verify-ssl update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${APP_NAME}:{TASKDEF_REV} --desired-count ${NUM_TASKS} --force-new-deployment")
+          sh("aws ecs --no-verify-ssl update-service --cluster ${CLUSTER} --region ${REGION} --service ${SERVICE_NAME} --task-definition ${APP_NAME}:${TASKDEF_REV} --desired-count ${NUM_TASKS} --force-new-deployment")
         }
     }
 }
