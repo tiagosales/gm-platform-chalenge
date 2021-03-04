@@ -14,8 +14,8 @@ node {
         }
 
         stage('Push docker image') {
-            ECR_ADDRESS = sh(script: 'bash get-ecr-repo.sh ${APP_NAME} ${REGION}', returnStdout: true)
-            TASKDEF_REV = sh(script: 'bash get-ecs-taskrev.sh ${APP_NAME} ${REGION}', returnStdout: true)
+            ECR_ADDRESS = sh(script: 'bash get-ecr-repo.sh ${APP_NAME} ${REGION}', returnStdout: true).trim()
+            TASKDEF_REV = sh(script: 'bash get-ecs-taskrev.sh ${APP_NAME} ${REGION}', returnStdout: true).trim()
             withEnv(['ECR_ADDRESS=${ECR_ADDRESS}','TASKDEF_REV=${TASKDEF_REV}']){
               docker.withRegistry("https://$ECR_ADDRESS", '') {
                 sh("aws ecr --no-verify-ssl get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_ADDRESS}")
