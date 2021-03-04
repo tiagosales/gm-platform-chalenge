@@ -9,10 +9,10 @@ node {
     }
 
     stage('Build docker image') {
-         docker.build('gmile-challenge')
+         docker.build('gmile-app')
     }
 
-    withEnv(['REPO_NAME=gmile-challenge', 'REGION=us-east-1','CLUSTER=ecs-cluster1','SERVICE_NAME=gmilechallenge-service','TASKDEF=gmilechallenge-app:1','NUMTASKS=1']){
+    withEnv(['REPO_NAME=gmile-repo', 'REGION=us-east-1','CLUSTER=gmile-ecs-cluster','SERVICE_NAME=gmile-service','TASKDEF=gmile-app:1','NUMTASKS=1']){
       stage('Push docker image') {
         ECR_ADDRESS = sh(script: 'bash get-ecr-repo.sh ${REPO_NAME} ${REGION}', returnStdout: true)
         withEnv(['ECR_ADDRESS=${ECR_ADDRESS}']){
